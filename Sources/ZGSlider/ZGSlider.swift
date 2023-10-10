@@ -24,22 +24,7 @@ public class ZGSlider: UISlider {
         return CGRect.init(x: rect.origin.x, y: (bounds.size.height-sliderHeight)/2, width: bounds.size.width, height: sliderHeight)
     }
     
-    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let result = super.hitTest(point, with: event)
-        if point.x < 0 || point.x > bounds.size.width{
-            return result
-        }
-        if point.y >= -thumbBound_y && point.y < (lastBounds.size.height+thumbBound_y) {
-            var value = point.x - bounds.origin.x
-            value = value/bounds.size.width
-            value = value < 0 ? 0 : value
-            value = value > 1 ? 1 : value
-            let fvalue = Float(value) * (maximumValue-minimumValue) + minimumValue
-            setValue(fvalue, animated: true)
-        }
-        return result
-    }
-    
+
     public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         var result = super.point(inside: point, with: event)
         if !result && point.y > -10 {
